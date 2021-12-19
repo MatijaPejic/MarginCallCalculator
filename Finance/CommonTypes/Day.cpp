@@ -42,6 +42,29 @@ int Day::calculateWeekday(){
 	  return time_out->tm_wday;
 }
 
+void Day::validateDate(int day, int month, int year){
+	Logger logger;
+	struct tm tm{};
+	tm.tm_mday = day;
+	tm.tm_mon = month - 1;
+	tm.tm_year = year - 1900;
+	tm.tm_hour = 0;
+	tm.tm_min = 0;
+	tm.tm_isdst = 0;
+
+
+	time_t res = mktime(&tm);
+	    if (res < 0){
+	        logger.log("Invalid date");
+	    }
+	    if (tm.tm_mday != day
+	     || tm.tm_mon != month - 1
+	     || tm.tm_year != year - 1900){
+	    	logger.log("Invalid date");
+	    }
+
+}
+
 std::string Day::getWeekdayStr(){
 	Logger LOGGER;
 	switch(weekday){
@@ -72,3 +95,4 @@ std::string Day::getWeekdayStr(){
 
 	}
 }
+

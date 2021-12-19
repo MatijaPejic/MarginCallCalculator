@@ -2,12 +2,11 @@
 #define COMMONTYPES_DAY_HPP_
 
 #include <iostream>
-
-// dodaj add days, incement i decrement , validacija dana
 class Day{
 public:
 	Day();
 	Day(int day, int month, int year){
+		validateDate(day, month, year);
 		this->day = day;
 		this->month = month;
 		this->year = year;
@@ -22,6 +21,7 @@ public:
 	int getWeekday();
 	int calculateWeekday();
 	std::string getWeekdayStr();
+	void validateDate(int day, int month, int year);
 
 private:
 	int year;
