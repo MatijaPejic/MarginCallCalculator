@@ -8,13 +8,25 @@
 #ifndef COMMONTYPES_MONEYAMOUNT_HPP_
 #define COMMONTYPES_MONEYAMOUNT_HPP_
 
-//TODO definicija polja i metoda
+#include <iostream>
+#include "Currency.hpp"
 
+//TODO definicija polja i metoda
 class MoneyAmount {
 public:
+	MoneyAmount(Currency *currency, float quantity){
+		this->currency = currency;
+		this->quantity = quantity;
+	}
 
-
+	MoneyAmount* convertToDollar();
+	MoneyAmount* convertFromDollar(std::string toCurrencyName);
+	float getQuantity();
+	Currency* getCurrency();
 private:
+	Currency *currency;
+	float quantity;
+
 
 };
 
