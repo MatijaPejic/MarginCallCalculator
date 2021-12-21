@@ -8,8 +8,6 @@
 #include "CurrencyTypes.hpp"
 
 #include "Logger.hpp"
-#include <cstdlib>
-
 Currency* CurrencyTypes::getCHF(){
 	return CHF;
 }
