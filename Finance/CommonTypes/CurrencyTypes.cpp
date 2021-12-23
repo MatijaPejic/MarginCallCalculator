@@ -6,7 +6,7 @@
  */
 
 #include "CurrencyTypes.hpp"
-
+#include "Currency.hpp"
 #include "Logger.hpp"
 Currency* CurrencyTypes::getCHF(){
 	return CHF;
@@ -26,7 +26,7 @@ Currency* CurrencyTypes::getRUB(){
 
 Currency* CurrencyTypes::getByName(std::string currencyName){
 	Logger logger;
-	for(Currency* e : allBaseCurrencies){
+	for(auto e : allBaseCurrencies){
 		if(e->getCurrencyName().compare(currencyName) == 0){
 			return e;
 		}

@@ -28,7 +28,7 @@ MoneyAmount* MoneyAmount::convertFromDollar(std::string toCurrencyName){
 }
 
 
-float MoneyAmount::getQuantity(){
+double MoneyAmount::getQuantity(){
 	return quantity;
 }
 Currency* MoneyAmount::getCurrency(){

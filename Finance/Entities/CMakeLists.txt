@@ -1,0 +1,6 @@
+add_library(Agreement Agreement.hpp Agreement.cpp)
+add_library(Broker Broker.hpp Broker.cpp)
+add_library(Client Client.hpp Client.cpp)
+target_include_directories(Agreement PUBLIC "../Entities")
+target_include_directories(Broker PUBLIC "../Entities")
+target_include_directories(Client PUBLIC "../Entities")
