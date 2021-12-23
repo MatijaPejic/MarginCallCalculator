@@ -14,18 +14,18 @@
 //TODO definicija polja i metoda
 class MoneyAmount {
 public:
-	MoneyAmount(Currency *currency, float quantity){
+	MoneyAmount(Currency *currency, double quantity){
 		this->currency = currency;
 		this->quantity = quantity;
 	}
 
 	MoneyAmount* convertToDollar();
 	MoneyAmount* convertFromDollar(std::string toCurrencyName);
-	float getQuantity();
+	double getQuantity();
 	Currency* getCurrency();
 private:
 	Currency *currency;
-	float quantity;
+	double quantity;
 
 
 };

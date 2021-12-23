@@ -20,8 +20,4 @@ private:
 	float fromDollarConversionRate;
 };
 
-
-
-
-
 #endif /* COMMONTYPES_CURRENCY_HPP_ */
