@@ -9,34 +9,30 @@ using namespace std;
 class Client {
 public:
 	Client(std::string name,
-	Broker* broker,
-    Agreement* agreement,
 	MoneyAmount* ownMoneyInvested,
-    MoneyAmount* moneyBorrowed){
+    MoneyAmount* moneyBorrowed,
+    int agreementId){
         this->name = name;
-        this->broker = broker;
-        this->agreement = agreement;
         this->ownMoneyInvested = ownMoneyInvested;
         this->moneyBorrowed = moneyBorrowed;
         this->totalBalance = calcTotalBalance();
+        this->agreementId = agreementId;
 
     }
 
 	std::string getName();
-	Broker* getBroker();
-    Agreement* getAgreement();
 	MoneyAmount* getOwnMoneyInvested();
     MoneyAmount* getMoneyBorrowed();
     MoneyAmount* getTotal();
+    int getAgreementId();
 
 private:
 	std::string name;
-	Broker* broker;
-    Agreement* agreement;
 	MoneyAmount* ownMoneyInvested;
     MoneyAmount* moneyBorrowed;
     MoneyAmount* totalBalance;
     MoneyAmount* calcTotalBalance();
+    int agreementId;
 
 };
 

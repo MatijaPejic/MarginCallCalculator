@@ -2,21 +2,18 @@
 #include "Client.hpp"
 #include "Broker.hpp"
 #include <Day.hpp>
+#include <CurrencyTypes.hpp>
 #include <MoneyAmount.hpp>
 
 
 int Agreement::getId(){
     return id;
 }
-Client* Agreement::getClient(){
-    return client;
-}
-Broker* Agreement::getBroker(){
-    return broker;
-}
+
 Day* Agreement::getValueDate(){
     return valueDate;
 }
-MoneyAmount* Agreement::getBoughtStocksValue(){
-    return boughtStocksValue;
+MoneyAmount* Agreement::getCurrentValueOfClientOnMarket(){
+    CurrencyTypes* currencies = new CurrencyTypes();
+    return new MoneyAmount(currencies->getUSD(), 1000);
 }

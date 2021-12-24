@@ -6,16 +6,22 @@ using namespace std;
 
 class Broker {
 public:
-	Broker(string name, PercentRate* marginMaintenanceRate){
+	Broker(string name, PercentRate* marginMaintenanceRate, int agreementId, PercentRate* brokerInterest){
 		this->name = name;
 		this->marginMaintenanceRate =  marginMaintenanceRate;
+		this->agreementId = agreementId;
+		this->brokerInterest = brokerInterest;
 	}
 
 	string getName();
 	PercentRate* getPercentRate();
+	PercentRate* getBrokerInterest();
+	int getAgreementId();
 private:
 	string name;
 	PercentRate* marginMaintenanceRate;
+	int agreementId;
+	PercentRate* brokerInterest;
 };
 
 

@@ -10,32 +10,20 @@
 
 class Agreement{
 public:
-    Agreement(int id,
-        Client* client,
-        Broker* broker,
-        Day* valueDate,
-        MoneyAmount* boughtStocksValue){
+    Agreement(int id, Day* valueDate){
             this->id = id;
-            this->client = client;
-            this->broker = broker;
             this->valueDate = valueDate;
-            this->boughtStocksValue = boughtStocksValue;
         };
 
     int getId();
-    Client* getClient();
-    Broker* getBroker();
     Day* getValueDate();
-    MoneyAmount* getBoughtStocksValue();
+    MoneyAmount* getCurrentValueOfClientOnMarket();
 
 
 private:
     int id;
-    Client* client;
-    Broker* broker;
     Day* valueDate;
-    MoneyAmount* boughtStocksValue;
-
+    
 };
 
 #endif

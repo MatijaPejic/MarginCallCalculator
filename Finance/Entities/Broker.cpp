@@ -8,3 +8,11 @@ string Broker::getName(){
 PercentRate* Broker::getPercentRate(){
     return marginMaintenanceRate;
 };
+
+int Broker::getAgreementId(){
+    return agreementId;
+}
+
+PercentRate* Broker::getBrokerInterest(){
+    return brokerInterest;
+}

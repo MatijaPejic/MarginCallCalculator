@@ -22,6 +22,7 @@ public:
 	int calculateWeekday();
 	std::string getWeekdayStr();
 	void validateDate(int day, int month, int year);
+	std::string toStringDate();
 
 private:
 	int year;
