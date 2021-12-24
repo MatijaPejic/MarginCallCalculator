@@ -1,8 +1,11 @@
 # MarginCallCalculator
-Sistem za verzionisanje: Git
-Issues sekcija je koriscena za pracenje taskova na "prici" gde se implemenira algoritam za racunanje margin call-a
-(skoro)Sve implementacije su isle kroz zasebne /feature grane koje su pushovane na repo i mergovane na mainline i mogu se videti u sekciji branches
-Grane su obelezene 
+-Sistem za verzionisanje: Git
+-Issues sekcija je koriscena za pracenje taskova na "prici" gde se implemenira algoritam za racunanje margin call-a
+(skoro)Sve implementacije su isle kroz zasebne /feature grane koje su pushovane na repo i mergovane na mainline i mogu se videti u sekciji branches, dok se pull requestovi mogu videti u svojoj sekciji
+-Grane su obelezene odgovarajucim labela (enhancement ili bug)
+-Za resavanje bagova koriscen je GDB kroz okruzenje VSC, za reseni bug mogu se videti screenshot-ovi na odgovarajucem pull requestu koji je obelezen labelom bug
+(idealno bi bilo da je postojala posebna bugfix/ grana za bug ali se on desio tokom implementacije algoritma pa zato na toj grani)
+
 
 
 
