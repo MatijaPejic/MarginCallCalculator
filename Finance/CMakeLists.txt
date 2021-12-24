@@ -20,6 +20,7 @@ target_link_libraries(Client PRIVATE Currency)
 target_link_libraries(Broker PRIVATE PercentRate)
 target_link_libraries(Agreement PRIVATE Day)
 target_link_libraries(Agreement PRIVATE MoneyAmount)
+target_link_libraries(Agreement PRIVATE CurrencyTypes)
 message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
  
 

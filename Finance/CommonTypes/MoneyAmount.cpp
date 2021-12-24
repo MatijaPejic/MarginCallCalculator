@@ -8,8 +8,8 @@
 
 MoneyAmount* MoneyAmount::convertToDollar(){
 	if(! currency->getCurrencyName().compare("USD") == 0){
-		CurrencyTypes currencies;
-		Currency* usdCurrency = currencies.getUSD();
+		CurrencyTypes* currencies = new CurrencyTypes();
+		Currency* usdCurrency = currencies->getUSD();
 		return new MoneyAmount(usdCurrency, quantity * currency->getToDollarRate());
 	}
 
@@ -18,8 +18,8 @@ MoneyAmount* MoneyAmount::convertToDollar(){
 MoneyAmount* MoneyAmount::convertFromDollar(std::string toCurrencyName){
 	Logger logger;
 	if(currency->getCurrencyName().compare("USD") == 0){
-		CurrencyTypes currencies;
-			Currency* targetCurrency = currencies.getByName(toCurrencyName);
+		CurrencyTypes* currencies = new CurrencyTypes();
+			Currency* targetCurrency = currencies->getByName(toCurrencyName);
 			return new MoneyAmount(targetCurrency, quantity * targetCurrency->getFromDollarRate());
 		}
 

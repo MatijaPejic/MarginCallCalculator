@@ -9,12 +9,7 @@ using namespace std;
 string Client::getName(){
     return name;
 };
-Broker* Client::getBroker(){
-    return broker;
-};
-Agreement* Client::getAgreement(){
-    return agreement;
-};
+
 MoneyAmount* Client::getOwnMoneyInvested(){
     return ownMoneyInvested;
 };
@@ -31,3 +26,7 @@ MoneyAmount* Client::calcTotalBalance(){
 MoneyAmount* Client::getTotal(){
 return totalBalance;
 };
+
+int Client::getAgreementId(){
+    return agreementId;
+}
