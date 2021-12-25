@@ -7,6 +7,7 @@
 -Grane i taskovi su obelezene odgovarajucim labela (enhancement, documentation ili bug) </br>
 -Za resavanje bagova koriscen je GDB kroz okruzenje VSC, za reseni bug mogu se videti screenshot-ovi na odgovarajucem pull requestu koji je obelezen labelom bug
 (idealno bi bilo da je postojala posebna bugfix/ grana za bug ali se on desio tokom implementacije algoritma pa je zato na toj grani) </br>
+-ClangTidy i Format imaju zasebne grane pa se njihovi rezultati mogu odvojeno videti
 
 
 
