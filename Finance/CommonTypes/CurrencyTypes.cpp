@@ -8,31 +8,37 @@
 #include "CurrencyTypes.hpp"
 #include "Currency.hpp"
 #include "Logger.hpp"
-Currency* CurrencyTypes::getCHF(){
+Currency *CurrencyTypes::getCHF()
+{
 	return CHF;
 }
-Currency* CurrencyTypes::getUSD(){
+Currency *CurrencyTypes::getUSD()
+{
 	return USD;
 }
-Currency* CurrencyTypes::getEUR(){
+Currency *CurrencyTypes::getEUR()
+{
 	return EUR;
 }
-Currency* CurrencyTypes::getRS(){
+Currency *CurrencyTypes::getRS()
+{
 	return RS;
 }
-Currency* CurrencyTypes::getRUB(){
+Currency *CurrencyTypes::getRUB()
+{
 	return RUB;
 }
 
-Currency* CurrencyTypes::getByName(std::string currencyName){
+Currency *CurrencyTypes::getByName(std::string currencyName)
+{
 	Logger logger;
-	for(auto e : allBaseCurrencies){
-		if(e->getCurrencyName().compare(currencyName) == 0){
+	for (auto e : allBaseCurrencies)
+	{
+		if (e->getCurrencyName().compare(currencyName) == 0)
+		{
 			return e;
 		}
 	}
 	logger.log("Unknown base currency");
 	return nullptr;
 }
-
-

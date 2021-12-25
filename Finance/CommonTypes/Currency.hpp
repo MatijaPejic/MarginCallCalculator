@@ -2,9 +2,11 @@
 #define COMMONTYPES_CURRENCY_HPP_
 
 #include <iostream>
-class Currency {
+class Currency
+{
 public:
-	Currency (std::string currency, float toDollar, float fromDollar){
+	Currency(std::string currency, float toDollar, float fromDollar)
+	{
 		this->currency = currency;
 		this->toDollarConversionRate = toDollar;
 		this->fromDollarConversionRate = fromDollar;

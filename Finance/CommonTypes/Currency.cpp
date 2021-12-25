@@ -1,11 +1,14 @@
 #include "Currency.hpp"
 
-std::string Currency::getCurrencyName(){
+std::string Currency::getCurrencyName()
+{
 	return currency;
 }
-float Currency::getToDollarRate(){
+float Currency::getToDollarRate()
+{
 	return toDollarConversionRate;
 }
-float Currency::getFromDollarRate(){
+float Currency::getFromDollarRate()
+{
 	return fromDollarConversionRate;
 }

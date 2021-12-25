@@ -2,17 +2,21 @@
 #include "Broker.hpp"
 #include <iostream>
 using namespace std;
-string Broker::getName(){
+string Broker::getName()
+{
     return name;
 };
-PercentRate* Broker::getPercentRate(){
+PercentRate *Broker::getPercentRate()
+{
     return marginMaintenanceRate;
 };
 
-int Broker::getAgreementId(){
+int Broker::getAgreementId()
+{
     return agreementId;
 }
 
-PercentRate* Broker::getBrokerInterest(){
+PercentRate *Broker::getBrokerInterest()
+{
     return brokerInterest;
 }

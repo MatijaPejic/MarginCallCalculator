@@ -12,22 +12,23 @@
 #include "Currency.hpp"
 
 //TODO definicija polja i metoda
-class MoneyAmount {
+class MoneyAmount
+{
 public:
-	MoneyAmount(Currency *currency, double quantity){
+	MoneyAmount(Currency *currency, double quantity)
+	{
 		this->currency = currency;
 		this->quantity = quantity;
 	}
 
-	MoneyAmount* convertToDollar();
-	MoneyAmount* convertFromDollar(std::string toCurrencyName);
+	MoneyAmount *convertToDollar();
+	MoneyAmount *convertFromDollar(std::string toCurrencyName);
 	double getQuantity();
-	Currency* getCurrency();
+	Currency *getCurrency();
+
 private:
 	Currency *currency;
 	double quantity;
-
-
 };
 
 #endif /* COMMONTYPES_MONEYAMOUNT_HPP_ */

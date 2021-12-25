@@ -6,27 +6,33 @@
 #include <CurrencyTypes.hpp>
 using namespace std;
 
-string Client::getName(){
+string Client::getName()
+{
     return name;
 };
 
-MoneyAmount* Client::getOwnMoneyInvested(){
+MoneyAmount *Client::getOwnMoneyInvested()
+{
     return ownMoneyInvested;
 };
-MoneyAmount* Client::getMoneyBorrowed(){
+MoneyAmount *Client::getMoneyBorrowed()
+{
     return moneyBorrowed;
 };
 
-MoneyAmount* Client::calcTotalBalance(){
+MoneyAmount *Client::calcTotalBalance()
+{
     double total = ownMoneyInvested->convertToDollar()->getQuantity() + moneyBorrowed->convertToDollar()->getQuantity();
     CurrencyTypes types;
-    return new MoneyAmount(types.getUSD(),total);
+    return new MoneyAmount(types.getUSD(), total);
 };
 
-MoneyAmount* Client::getTotal(){
-return totalBalance;
+MoneyAmount *Client::getTotal()
+{
+    return totalBalance;
 };
 
-int Client::getAgreementId(){
+int Client::getAgreementId()
+{
     return agreementId;
 }

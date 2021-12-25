@@ -1,13 +1,15 @@
 #include "MoneyAmount.hpp"
 #include "PercentRate.hpp"
 
-
-MoneyAmount* PercentRate::multiply(MoneyAmount* amount){
+MoneyAmount *PercentRate::multiply(MoneyAmount *amount)
+{
     return new MoneyAmount(amount->getCurrency(), amount->getQuantity() * rate);
 }
-float PercentRate::getRate(){
+float PercentRate::getRate()
+{
     return rate;
 }
-double PercentRate::getPercetRate(){
+double PercentRate::getPercetRate()
+{
     return percentRate;
 }

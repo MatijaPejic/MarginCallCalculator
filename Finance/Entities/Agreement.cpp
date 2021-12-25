@@ -5,15 +5,17 @@
 #include <CurrencyTypes.hpp>
 #include <MoneyAmount.hpp>
 
-
-int Agreement::getId(){
+int Agreement::getId()
+{
     return id;
 }
 
-Day* Agreement::getValueDate(){
+Day *Agreement::getValueDate()
+{
     return valueDate;
 }
-MoneyAmount* Agreement::getCurrentValueOfClientOnMarket(){
-    CurrencyTypes* currencies = new CurrencyTypes();
+MoneyAmount *Agreement::getCurrentValueOfClientOnMarket()
+{
+    CurrencyTypes *currencies = new CurrencyTypes();
     return new MoneyAmount(currencies->getUSD(), 1000);
 }
