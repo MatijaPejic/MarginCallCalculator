@@ -1,24 +1,23 @@
-#include <Client.hpp>
-#include <Broker.hpp>
 #include <Agreement.hpp>
-#include <MoneyAmount.hpp>
-#include <CurrencyTypes.hpp>
+#include <Broker.hpp>
+#include <Client.hpp>
 #include <Currency.hpp>
+#include <CurrencyTypes.hpp>
 #include <Logger.hpp>
-#include <iomanip>
+#include <MoneyAmount.hpp>
 using namespace std;
 
-double calculateAmountToMaintenanceRate(double currentClientMoneyOnAccount, double totalMoneyOnAccount, PercentRate *maintenanceRate)
+auto calculateAmountToMaintenanceRate(double currentClientMoneyOnAccount, double totalMoneyOnAccount, PercentRate *maintenanceRate) -> double
 {
     return totalMoneyOnAccount * maintenanceRate->getRate() - currentClientMoneyOnAccount;
 };
 
-bool underMaintenanceRate(double currentClientMoneyOnAccount, double totalMoneyOnAccount, PercentRate *marginMaintenanceRate)
+auto underMaintenanceRate(double currentClientMoneyOnAccount, double totalMoneyOnAccount, PercentRate *marginMaintenanceRate) -> bool
 {
     return currentClientMoneyOnAccount / totalMoneyOnAccount < marginMaintenanceRate->getRate();
 };
 
-int validateAgreement(Client *client, Agreement *agreement, Broker *broker, Logger logger)
+auto validateAgreement(Client *client, Agreement *agreement, Broker *broker, Logger logger) -> int
 {
     if (!(client->getAgreementId() == agreement->getId() && agreement->getId() == broker->getAgreementId()))
     {
@@ -29,7 +28,7 @@ int validateAgreement(Client *client, Agreement *agreement, Broker *broker, Logg
     return 0;
 }
 
-int validateClient(Client *client, Logger logger)
+auto validateClient(Client *client, Logger logger) -> int
 {
 
     if (client->getOwnMoneyInvested()->getQuantity() < 0)
@@ -48,7 +47,7 @@ int validateClient(Client *client, Logger logger)
     return 0;
 }
 
-int validateBroker(Broker *broker, Logger logger)
+auto validateBroker(Broker *broker, Logger logger) -> int
 {
     if (broker->getPercentRate()->getRate() > 0.35 || broker->getPercentRate()->getRate() < 0.25)
     {
@@ -64,21 +63,27 @@ int validateBroker(Broker *broker, Logger logger)
     return 0;
 }
 
-bool isBefore(Day *today, Day *calcDate)
+auto isBefore(Day *today, Day *calcDate) -> bool
 {
     if (today->getYear() > calcDate->getYear())
+    {
         return true;
+    }
     if (today->getMonth() > calcDate->getMonth())
+    {
         return true;
+    }
     if (today->getDay() > calcDate->getDay())
+    {
         return true;
+    }
     return false;
 }
 
-int validateCalculationDate(Day *calculationDate, Logger logger)
+auto validateCalculationDate(Day *calculationDate, Logger logger) -> int
 {
-    if (calculationDate->getWeekdayStr().compare("Saturday") == 0 ||
-        calculationDate->getWeekdayStr().compare("Sunday") == 0)
+    if (calculationDate->getWeekdayStr() == "Saturday" ||
+        calculationDate->getWeekdayStr() == "Sunday")
     {
         logger.log("Cannot calculate margin call on weekend");
         return -1;
@@ -93,18 +98,24 @@ int validateCalculationDate(Day *calculationDate, Logger logger)
     return 0;
 }
 
-int validateEntities(Client *client, Agreement *agreement, Broker *broker, Logger logger)
+auto validateEntities(Client *client, Agreement *agreement, Broker *broker, Logger logger) -> int
 {
     if (validateAgreement(client, agreement, broker, logger) == -1)
+    {
         return -1;
+    }
     if (validateClient(client, logger) == -1)
+    {
         return -1;
+    }
     if (validateBroker(broker, logger) == -1)
+    {
         return -1;
+    }
     return 0;
 }
 
-double calculateMarginCall(Client *client, Agreement *agreement, Broker *broker, Day *currentDay)
+auto calculateMarginCall(Client *client, Agreement *agreement, Broker *broker, Day *currentDay) -> double
 {
     cout << "Starting Margin Call calculation for Client: " + client->getName() << " " << currentDay->toStringDate() << endl;
     Logger logger;
@@ -113,7 +124,9 @@ double calculateMarginCall(Client *client, Agreement *agreement, Broker *broker,
         return -1;
     }
     if (validateEntities(client, agreement, broker, logger) == -1)
+    {
         return -1;
+    }
     PercentRate *marginMaintenanceRate = broker->getPercentRate();
     double currentValueOfClientOnMarket = agreement->getCurrentValueOfClientOnMarket()->convertToDollar()->getQuantity();
     double totalClientInvestment = client->getTotal()->convertToDollar()->getQuantity();
@@ -124,19 +137,17 @@ double calculateMarginCall(Client *client, Agreement *agreement, Broker *broker,
         {
             return -currentClientAmount + calculateAmountToMaintenanceRate(0, currentValueOfClientOnMarket, marginMaintenanceRate);
         }
-        else
+
+        if (underMaintenanceRate(currentClientAmount, currentValueOfClientOnMarket, marginMaintenanceRate))
         {
-            if (underMaintenanceRate(currentClientAmount, currentValueOfClientOnMarket, marginMaintenanceRate))
-            {
-                return calculateAmountToMaintenanceRate(currentClientAmount, currentValueOfClientOnMarket, marginMaintenanceRate);
-            }
+            return calculateAmountToMaintenanceRate(currentClientAmount, currentValueOfClientOnMarket, marginMaintenanceRate);
         }
     }
 
     return 0;
 };
 
-int parseOutput(Client *client, Agreement *agreement, Broker *broker, double result)
+auto parseOutput(Client *client, Agreement *agreement, Broker *broker, double result) -> int
 {
     Logger logger;
     if (result == -1)
@@ -146,40 +157,78 @@ int parseOutput(Client *client, Agreement *agreement, Broker *broker, double res
     }
     if (result == 0)
     {
-        cout << client->getName() << " is above the margin maintenance rate of " << std::to_string(broker->getPercentRate()->getPercetRate()) << " issued by broker " << broker->getName() << endl;
-        cout << "Total initial investement: " << std::to_string(client->getTotal()->getQuantity()) << " " << client->getTotal()->getCurrency()->getCurrencyName()
-             << " ( Own money invested: " << client->getOwnMoneyInvested()->getQuantity() << ", money borrowed from broker: " << client->getMoneyBorrowed()->getQuantity() << " )" << endl;
-        cout << "Current value on the stock: " << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity()) << " " << agreement->getCurrentValueOfClientOnMarket()->getCurrency()->getCurrencyName() << endl;
-        cout << "Profit (without broker interest): " << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity() - client->getTotal()->getQuantity()) << " " << client->getTotal()->getCurrency()->getCurrencyName()
+        cout << client->getName()
+             << " is above the margin maintenance rate of "
+             << std::to_string(broker->getPercentRate()->getPercetRate())
+             << " issued by broker " << broker->getName() << endl;
+        cout << "Total initial investement: "
+             << std::to_string(client->getTotal()->getQuantity())
+             << " " << client->getTotal()->getCurrency()->getCurrencyName()
+             << " ( Own money invested: " << client->getOwnMoneyInvested()->getQuantity()
+             << ", money borrowed from broker: "
+             << client->getMoneyBorrowed()->getQuantity() << " )"
+             << endl;
+        cout << "Current value on the stock: "
+             << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity())
+             << " "
+             << agreement->getCurrentValueOfClientOnMarket()->getCurrency()->getCurrencyName()
+             << endl;
+        cout << "Profit (without broker interest): "
+             << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity() - client->getTotal()->getQuantity())
+             << " "
+             << client->getTotal()->getCurrency()->getCurrencyName()
              << endl;
     }
     else
     {
-        cout << client->getName() << " is NOT above the margin maintenance rate of " << std::to_string(broker->getPercentRate()->getPercetRate()) << " issued by broker " << broker->getName() << " \nDeposit needed to stay above margin maintenance rate: " << std::to_string(result) << " " << client->getTotal()->getCurrency()->getCurrencyName() << endl;
-        cout << "Total initial investement: " << std::to_string(client->getTotal()->getQuantity()) << " " << client->getTotal()->getCurrency()->getCurrencyName()
-             << " ( Own money invested: " << client->getOwnMoneyInvested()->getQuantity() << ", money borrowed from broker: " << client->getMoneyBorrowed()->getQuantity() << " )" << endl;
-        cout << "Current value on the stock: " << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity()) << " " << agreement->getCurrentValueOfClientOnMarket()->getCurrency()->getCurrencyName() << endl;
-        cout << "Loss (without broker interest): " << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity() - client->getTotal()->getQuantity()) << " " << client->getTotal()->getCurrency()->getCurrencyName()
+        cout << client->getName()
+             << " is NOT above the margin maintenance rate of "
+             << std::to_string(broker->getPercentRate()->getPercetRate())
+             << " issued by broker "
+             << broker->getName()
+             << " \nDeposit needed to stay above margin maintenance rate: "
+             << std::to_string(result)
+             << " "
+             << client->getTotal()->getCurrency()->getCurrencyName()
+             << endl;
+        cout << "Total initial investement: "
+             << std::to_string(client->getTotal()->getQuantity())
+             << " "
+             << client->getTotal()->getCurrency()->getCurrencyName()
+             << " ( Own money invested: "
+             << client->getOwnMoneyInvested()->getQuantity()
+             << ", money borrowed from broker: "
+             << client->getMoneyBorrowed()->getQuantity()
+             << " )"
+             << endl;
+        cout << "Current value on the stock: "
+             << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity())
+             << " "
+             << agreement->getCurrentValueOfClientOnMarket()->getCurrency()->getCurrencyName()
+             << endl;
+        cout << "Loss (without broker interest): "
+             << std::to_string(agreement->getCurrentValueOfClientOnMarket()->getQuantity() - client->getTotal()->getQuantity())
+             << " "
+             << client->getTotal()->getCurrency()->getCurrencyName()
              << endl;
     }
     cout << "________________________________________________________________" << endl;
-    cin.ignore();
     return 0;
 }
 
-int main()
+auto main() -> int
 {
-    CurrencyTypes *currencies = new CurrencyTypes();
-    Agreement *agreement = new Agreement(1,
-                                         new Day(1, 1, 2021));
-    Client *client = new Client("client13",
-                                new MoneyAmount(currencies->getUSD(), 5000),
-                                new MoneyAmount(currencies->getUSD(), 5000),
-                                1);
-    Broker *broker = new Broker("broker13",
-                                new PercentRate(35),
-                                1,
-                                new PercentRate(0));
+    auto *currencies = new CurrencyTypes();
+    auto *agreement = new Agreement(1,
+                                    new Day(1, 1, 2021));
+    auto *client = new Client("client13",
+                              new MoneyAmount(currencies->getUSD(), 5000),
+                              new MoneyAmount(currencies->getUSD(), 5000),
+                              1);
+    auto *broker = new Broker("broker13",
+                              new PercentRate(35),
+                              1,
+                              new PercentRate(0));
 
     Day *calcDate = new Day(23, 12, 2021);
     double result = calculateMarginCall(client, agreement, broker, calcDate);
