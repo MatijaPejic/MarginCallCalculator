@@ -2,19 +2,20 @@
 #define COMMONTYPES_DAY_HPP_
 
 #include <iostream>
-class Day{
+class Day
+{
 public:
 	Day();
-	Day(int day, int month, int year){
+	Day(int day, int month, int year)
+	{
 		validateDate(day, month, year);
 		this->day = day;
 		this->month = month;
 		this->year = year;
 		this->weekday = calculateWeekday();
-
 	};
 
-	Day* getBusinessDay();
+	Day *getBusinessDay();
 	int getYear();
 	int getMonth();
 	int getDay();

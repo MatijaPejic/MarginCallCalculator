@@ -10,15 +10,12 @@
 
 #include <iostream>
 
-
-class Logger {
+class Logger
+{
 public:
 	void log(std::string errorMsg);
 
 private:
 };
-
-
-
 
 #endif /* COMMONTYPES_LOGGER_HPP_ */
