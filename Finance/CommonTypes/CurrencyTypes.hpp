@@ -1,10 +1,3 @@
-/*
- * Currencies.hpp
- *
- *  Created on: 18 Dec 2021
- *      Author: Matke
- */
-
 #ifndef COMMONTYPES_CURRENCYTYPES_HPP_
 #define COMMONTYPES_CURRENCYTYPES_HPP_
 #include <iostream>

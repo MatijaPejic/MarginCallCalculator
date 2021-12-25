@@ -1,5 +1,3 @@
-// implementacija svega iz HPP
-
 #include <iostream>
 #include "MoneyAmount.hpp"
 

@@ -1,9 +1,3 @@
-/*
- * Logger.cpp
- *
- *  Created on: 18 Dec 2021
- *      Author: Matke
- */
 #include <iostream>
 #include "Logger.hpp"
 

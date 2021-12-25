@@ -4,8 +4,6 @@
 #include <iostream>
 using namespace std;
 
-// implementacije iz day.hpp
-
 int Day::getYear()
 {
 	return year;

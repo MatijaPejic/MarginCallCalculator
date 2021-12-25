@@ -11,7 +11,6 @@
 #include <iostream>
 #include "Currency.hpp"
 
-//TODO definicija polja i metoda
 class MoneyAmount
 {
 public:
