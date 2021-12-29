@@ -11,7 +11,7 @@
 (idealno bi bilo da je postojala posebna bugfix/ grana za bug ali se on desio tokom implementacije algoritma pa je zato na toj grani) </br>
 - ClangTidy i Format imaju zasebne grane pa se njihovi rezultati mogu odvojeno videti (Tidy nam je otklonio potencionalne memory leak-ove)
 - Catch2 Testing Framework koriscen je za testiranje, idealno bi bilo integrisati ga kroz CMake sa require_package(...) ali sam tu imao dosta problema pa sam odabrao da koristim njihov catch.hpp i tag CATCH_CONFIG_MAIN koji definise catchov main za nas u nasem test.cpp fajlu.
-- Gcov je koriscen samostalno i njegov rezultat je okacen na wiki stranici, nisam uspeo da ga iskoristim zajedno sa Lcov jer iz nekog razloga na windowsu kada instaliram gcc preko MinGW Installera dobijem verziju gcc-a 6.3.0 a kada instaliram lcov preko msys2 dobijem lcov 11.0.0, pokusao sam da sve radim preko msys2 ali je tu nastalo jos dosta problema oko cmake-a. Pokrivenost je racunata za marginCallCalculator.cpp prilikom izvrsavanja testova, dobili smo pokrice od 92%.
+- Gcov je koriscen samostalno i njegov rezultat je okacen na issue stranici, nisam uspeo da ga iskoristim zajedno sa Lcov jer iz nekog razloga na windowsu kada instaliram gcc preko MinGW Installera dobijem verziju gcc-a 6.3.0 a kada instaliram lcov preko msys2 dobijem lcov 11.0.0, pokusao sam da sve radim preko msys2 ali je tu nastalo jos dosta problema oko cmake-a. Pokrivenost je racunata za marginCallCalculator.cpp prilikom izvrsavanja testova, dobili smo pokrice od 92%.
 
 
 
