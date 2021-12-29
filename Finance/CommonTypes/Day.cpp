@@ -2,6 +2,7 @@
 #include "Logger.hpp"
 #include <ctime>
 #include <iostream>
+#include <string>
 using namespace std;
 
 int Day::getYear()
@@ -103,4 +104,10 @@ std::string Day::getWeekdayStr()
 string Day::toStringDate()
 {
 	return std::to_string(day) + "/" + std::to_string(month) + "/" + std::to_string(year);
+}
+
+// for testing
+void Day::incrementDay(int n)
+{
+	day += n;
 }

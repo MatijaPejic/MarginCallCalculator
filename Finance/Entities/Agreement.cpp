@@ -16,6 +16,5 @@ Day *Agreement::getValueDate()
 }
 MoneyAmount *Agreement::getCurrentValueOfClientOnMarket()
 {
-    CurrencyTypes *currencies = new CurrencyTypes();
-    return new MoneyAmount(currencies->getUSD(), 1000);
+    return currentValueOfClientOnMarket;
 }

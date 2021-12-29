@@ -10,10 +10,11 @@
 class Agreement
 {
 public:
-    Agreement(int id, Day *valueDate)
+    Agreement(int id, Day *valueDate, MoneyAmount *clientValue)
     {
         this->id = id;
         this->valueDate = valueDate;
+        this->currentValueOfClientOnMarket = clientValue;
     };
 
     int getId();
@@ -23,6 +24,7 @@ public:
 private:
     int id;
     Day *valueDate;
+    MoneyAmount *currentValueOfClientOnMarket;
 };
 
 #endif
