@@ -1,10 +1,9 @@
-#include <Agreement.hpp>
-#include <Broker.hpp>
-#include <Client.hpp>
+#include "marginCallCalculator.hpp"
 #include <Currency.hpp>
 #include <CurrencyTypes.hpp>
 #include <Logger.hpp>
 #include <MoneyAmount.hpp>
+#include <string>
 using namespace std;
 
 auto calculateAmountToMaintenanceRate(double currentClientMoneyOnAccount, double totalMoneyOnAccount, PercentRate *maintenanceRate) -> double
@@ -21,7 +20,7 @@ auto validateAgreement(Client *client, Agreement *agreement, Broker *broker, Log
 {
     if (!(client->getAgreementId() == agreement->getId() && agreement->getId() == broker->getAgreementId()))
     {
-        logger.log(std::to_string(agreement->getId()) + " Invalid agreement between client and broker, cannot calculate margin call!");
+        logger.log(std::to_string(agreement->getId()) + ": Invalid agreement between client and broker, cannot calculate margin call!");
         return -1;
     }
 
@@ -63,7 +62,7 @@ auto validateBroker(Broker *broker, Logger logger) -> int
     return 0;
 }
 
-auto isBefore(Day *today, Day *calcDate) -> bool
+auto isAfter(Day *today, Day *calcDate) -> bool
 {
     if (today->getYear() > calcDate->getYear())
     {
@@ -80,18 +79,24 @@ auto isBefore(Day *today, Day *calcDate) -> bool
     return false;
 }
 
-auto validateCalculationDate(Day *calculationDate, Logger logger) -> int
+auto validateCalculationDate(Agreement *agreement, Day *calculationDate, Logger logger) -> int
 {
     if (calculationDate->getWeekdayStr() == "Saturday" ||
         calculationDate->getWeekdayStr() == "Sunday")
     {
-        logger.log("Cannot calculate margin call on weekend");
+        logger.log("Cannot calculate margin call on " + calculationDate->getWeekdayStr());
         return -1;
     }
 
-    if (!isBefore(calculationDate->getBusinessDay(), calculationDate))
+    if (!isAfter(calculationDate->getBusinessDay(), calculationDate))
     {
         logger.log("Cannot calculate margin call for future dates");
+        return -1;
+    }
+
+    if (!isAfter(calculationDate, agreement->getValueDate()))
+    {
+        logger.log("Cannot calculate margin call for date before agreement value date");
         return -1;
     }
 
@@ -119,7 +124,7 @@ auto calculateMarginCall(Client *client, Agreement *agreement, Broker *broker, D
 {
     cout << "Starting Margin Call calculation for Client: " + client->getName() << " " << currentDay->toStringDate() << endl;
     Logger logger;
-    if (validateCalculationDate(currentDay, logger) == -1)
+    if (validateCalculationDate(agreement, currentDay, logger) == -1)
     {
         return -1;
     }
@@ -214,23 +219,4 @@ auto parseOutput(Client *client, Agreement *agreement, Broker *broker, double re
     }
     cout << "________________________________________________________________" << endl;
     return 0;
-}
-
-auto main() -> int
-{
-    auto *currencies = new CurrencyTypes();
-    auto *agreement = new Agreement(1,
-                                    new Day(1, 1, 2021));
-    auto *client = new Client("client13",
-                              new MoneyAmount(currencies->getUSD(), 5000),
-                              new MoneyAmount(currencies->getUSD(), 5000),
-                              1);
-    auto *broker = new Broker("broker13",
-                              new PercentRate(35),
-                              1,
-                              new PercentRate(0));
-
-    Day *calcDate = new Day(23, 12, 2021);
-    double result = calculateMarginCall(client, agreement, broker, calcDate);
-    return parseOutput(client, agreement, broker, result);
-}
+};

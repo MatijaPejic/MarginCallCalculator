@@ -24,6 +24,8 @@ public:
 	std::string getWeekdayStr();
 	void validateDate(int day, int month, int year);
 	std::string toStringDate();
+	// for testing
+	void incrementDay(int n);
 
 private:
 	int year;
