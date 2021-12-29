@@ -3,13 +3,14 @@
 **Kratak Opis:**</br>
 - Sistem za verzionisanje: Git </br>
 - Alat za prevodjenje: CMake </br>
-- Jos neki korisceni alati: ClangFormat, ClangTidy, GDB </br>
+- Jos neki korisceni alati: ClangFormat, ClangTidy, GDB, Catch2 Testing Framework </br>
 - Issues sekcija je koriscena za pracenje taskova na "prici" gde se implemenira algoritam za racunanje margin call-a, (skoro)sve implementacije su isle kroz zasebne /feature grane koje su pushovane na repo i mergovane na mainline i mogu se videti u sekciji branches, dok se pull requestovi mogu videti u svojoj sekciji </br>
 - Par inicijalnih komitova je islo direktno na mainline sto nije idealno </br>
 - Grane i taskovi su obelezene odgovarajucim labelama (enhancement, documentation ili bug) </br>
 - Za resavanje bagova koriscen je GDB kroz okruzenje VSC, za reseni bug mogu se videti screenshot-ovi na odgovarajucem pull requestu koji je obelezen labelom bug
 (idealno bi bilo da je postojala posebna bugfix/ grana za bug ali se on desio tokom implementacije algoritma pa je zato na toj grani) </br>
 - ClangTidy i Format imaju zasebne grane pa se njihovi rezultati mogu odvojeno videti (Tidy nam je otklonio potencionalne memory leak-ove)
+- Catch2 Testing Framework koriscen je za testiranje, idealno bi bilo integrisati ga kroz CMake sa require_package(...) ali sam tu imao dosta problema pa sam odabrao da koristim njihov catch.hpp i tag CATCH_CONFIG_MAIN koji definise catchov main za nas u nasem test.cpp fajlu.
 
 
 
