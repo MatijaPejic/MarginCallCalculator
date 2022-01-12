@@ -1,4 +1,6 @@
 # MarginCallCalculator
+Projakt originalno radjen na githubu </br>
+gitlab link: https://gitlab.com/MatijaPejic/azrs-tracking </br>
 
 **Kratak Opis:**</br>
 - Sistem za verzionisanje: Git </br>
